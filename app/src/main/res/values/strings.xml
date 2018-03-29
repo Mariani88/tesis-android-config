@@ -5,4 +5,10 @@
     <string name="location_not_defined">Location not defined</string>
     <string name="transfer_phone_location">transfer phone location</string>
     <string name="connect">Connect</string>
+    <string name="retry">retry</string>
+
+    <string name="incompatibility_bluetooth">incompatibility with bluetooth</string>
+    <string name="bluetooth_on_required">bluetooth on is required</string>
+
+
 </resources>
