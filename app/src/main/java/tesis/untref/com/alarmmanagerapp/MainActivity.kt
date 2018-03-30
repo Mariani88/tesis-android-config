@@ -14,19 +14,18 @@ import tesis.untref.com.alarmmanagerapp.configurator.view.MainView
 class MainActivity : AppCompatActivity(), MainView {
     private val mainPresenter = MainPresenter(this)
     private lateinit var retryButton: Button
-    private lateinit var textView: TextView
+    private lateinit var reporterTextView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         retryButton = findViewById(R.id.retry_button)
-        textView = findViewById(R.id.reporter_text_view)
+        reporterTextView = findViewById(R.id.reporter_text_view)
         mainPresenter.checkBluetoothConnection(BluetoothAdapter.getDefaultAdapter())
         retryButton.setOnClickListener { mainPresenter.checkBluetoothConnection(BluetoothAdapter.getDefaultAdapter()) }
     }
 
     override fun reportIncompatibilityBluetooth() {
-        val reporterTextView = findViewById<TextView>(R.id.reporter_text_view)
         reporterTextView.visibility = View.VISIBLE
         reporterTextView.text = resources.getString(R.string.incompatibility_bluetooth)
     }
@@ -49,8 +48,8 @@ class MainActivity : AppCompatActivity(), MainView {
     }
 
     override fun reportBluetoothOnIsRequired() {
-        textView.text = resources.getString(R.string.bluetooth_on_required)
-        textView.visibility = View.VISIBLE
+        reporterTextView.text = resources.getString(R.string.bluetooth_on_required)
+        reporterTextView.visibility = View.VISIBLE
         retryButton.visibility = View.VISIBLE
     }
 
