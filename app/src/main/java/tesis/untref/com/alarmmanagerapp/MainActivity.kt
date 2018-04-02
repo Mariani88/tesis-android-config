@@ -48,11 +48,9 @@ class MainActivity : AppCompatActivity(), MainView {
         val uuid = "00001101-0000-1000-8000-00805F9B34FB"
         val bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
 
-        //val permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_ADMIN)
-
         val startDiscovery = bluetoothAdapter.startDiscovery()
 
-        var bluetoothDevice: BluetoothDevice? = null
+        var bluetoothDevice: BluetoothDevice?
 
         // Create a BroadcastReceiver for ACTION_FOUND
         this.broadcastReceiver = object : BroadcastReceiver() {
