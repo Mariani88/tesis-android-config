@@ -13,6 +13,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import tesis.untref.com.alarmmanagerapp.R
+import tesis.untref.com.alarmmanagerapp.location.infrastructure.LocationService
 
 class ConfiguratorActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener, ConfiguratorView {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,31 +29,8 @@ class ConfiguratorActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
         networksSpinner.adapter = adapter
         networksSpinner.onItemSelectedListener = this
 
-        val locationManager = this.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        val networkProvider = LocationManager.NETWORK_PROVIDER
-        ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
 
-        locationManager.requestLocationUpdates(networkProvider, 30000, 50f, object : LocationListener {
-            override fun onLocationChanged(location: Location?) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
-
-            override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
-
-            override fun onProviderEnabled(provider: String?) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
-
-            override fun onProviderDisabled(provider: String?) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
-        })
-
-
-        val lastKnownLocation = locationManager.getLastKnownLocation(networkProvider)
-
+        LocationService(this).findLastKnownLocation()
 
     }
 
