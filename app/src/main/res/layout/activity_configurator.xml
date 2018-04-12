@@ -33,7 +33,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/connect_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
@@ -48,8 +48,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:layout_marginEnd="27dp"
-        android:layout_marginRight="27dp"
+        android:layout_marginEnd="23dp"
+        android:layout_marginRight="23dp"
         android:layout_marginTop="32dp"
         android:text="@string/not_connected"
         app:layout_constraintEnd_toEndOf="parent"
@@ -59,15 +59,15 @@
         android:id="@+id/transfer_location_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="70dp"
+        android:layout_marginBottom="34dp"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="8dp"
         android:enabled="false"
         android:text="@string/transfer_phone_location"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/check_location_button" />
+        app:layout_constraintTop_toBottomOf="@+id/check_location_button" />
 
     <Button
         android:id="@+id/check_location_button"
@@ -75,21 +75,39 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="14dp"
+        android:layout_marginTop="30dp"
         android:enabled="true"
         android:text="@string/check_location"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_location_button" />
+        app:layout_constraintTop_toBottomOf="@+id/gps_button" />
 
-    <Button
-        android:id="@+id/search_location_button"
+    <RadioButton
+        android:id="@+id/gps_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="212dp"
+        android:layout_marginBottom="194dp"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
-        android:text="@string/search_location"
+        android:checked="false"
+        android:layout_marginTop="8dp"
+        android:text="@string/gps"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/connect_button" />
+
+    <RadioButton
+        android:id="@+id/network_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/network"
+        android:checked="true"
+        app:layout_constraintBottom_toTopOf="@+id/check_location_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.552"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/connect_button"
+        app:layout_constraintVertical_bias="1.0" />
 
 </android.support.constraint.ConstraintLayout>

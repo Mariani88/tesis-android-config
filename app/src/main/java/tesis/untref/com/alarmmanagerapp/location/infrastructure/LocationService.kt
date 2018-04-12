@@ -9,12 +9,14 @@ import tesis.untref.com.alarmmanagerapp.location.infrastructure.listener.Default
 
 class LocationService(private val context: Context) {
 
-    fun findLastKnownLocation(): Location? {
+    fun findLastKnownLocation(locationProvider: String): Location? {
         val locationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        val networkProvider = LocationManager.NETWORK_PROVIDER
+        //LocationManager.NETWORK_PROVIDER
         ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION)
-        locationManager.requestLocationUpdates(networkProvider, 30000, 50f, DefaultLocationListener(context))
-
-        return locationManager.getLastKnownLocation(networkProvider)
+        locationManager.requestLocationUpdates(locationProvider, getMinTime(locationProvider), 5f, DefaultLocationListener(context))
+        return locationManager.getLastKnownLocation(locationProvider)
     }
+
+    private fun getMinTime(locationProvider: String): Long =
+            if (locationProvider == LocationManager.NETWORK_PROVIDER) 30000 else 120000
 }

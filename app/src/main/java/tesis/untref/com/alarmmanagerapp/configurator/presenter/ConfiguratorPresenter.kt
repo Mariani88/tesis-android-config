@@ -7,10 +7,14 @@ import tesis.untref.com.alarmmanagerapp.location.infrastructure.LocationService
 
 class ConfiguratorPresenter(private val configuratorView: ConfiguratorView, private val locationService: LocationService) {
 
-    fun findLocation() {
-        val location = locationService
-                .findLastKnownLocation()?.toGoogleMapsCoordinate()?.
-                        let { configuratorView.goLocationView(it) } ?: configuratorView.reportLocationNotFound()
+    fun findLocation(locationProvider: String) {
+        locationService
+                .findLastKnownLocation(locationProvider)?.toGoogleMapsCoordinate()?.let { configuratorView.goLocationView(it) }
+                ?: configuratorView.reportLocationNotFound()
+    }
+
+    fun setLocationProvider(locationProvider: String) {
+        configuratorView.configLocationProvider(locationProvider)
     }
 }
 

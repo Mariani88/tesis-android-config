@@ -5,4 +5,5 @@ import com.google.android.gms.maps.model.LatLng
 interface ConfiguratorView {
     fun goLocationView(location: LatLng)
     fun reportLocationNotFound()
+    fun configLocationProvider(locationProvider: String)
 }

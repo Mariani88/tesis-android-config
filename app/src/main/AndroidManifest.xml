@@ -26,7 +26,7 @@
         </activity>
         <activity
             android:name=".configurator.view.ConfiguratorActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -41,7 +41,8 @@
 
         <activity
             android:name=".configurator.view.LocationActivity"
-            android:label="@string/title_activity_location"></activity>
+            android:label="@string/title_activity_location"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
