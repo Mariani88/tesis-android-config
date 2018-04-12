@@ -5,7 +5,6 @@ import android.location.LocationManager.GPS_PROVIDER
 import android.location.LocationManager.NETWORK_PROVIDER
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.view.View
 import android.widget.*
 import android.widget.Toast.LENGTH_LONG
 import com.google.android.gms.maps.model.LatLng
@@ -13,7 +12,7 @@ import tesis.untref.com.alarmmanagerapp.R
 import tesis.untref.com.alarmmanagerapp.configurator.presenter.ConfiguratorPresenter
 import tesis.untref.com.alarmmanagerapp.location.infrastructure.LocationService
 
-class ConfiguratorActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener, ConfiguratorView {
+class ConfiguratorActivity : AppCompatActivity(), ConfiguratorView {
     private lateinit var configuratorPresenter: ConfiguratorPresenter
 
     private var locationProvider = NETWORK_PROVIDER
@@ -26,14 +25,7 @@ class ConfiguratorActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
         configuratorPresenter = ConfiguratorPresenter(this, LocationService(this))
 
 
-        val networks = arrayListOf("none", "network 1", "network 2")
-        val networksSpinner = findViewById<Spinner>(R.id.spinner)
-        val adapter = ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, networks)
 
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        networksSpinner.adapter = adapter
-        networksSpinner.onItemSelectedListener = this
 
         gpsProviderButton = findViewById(R.id.gps_button)
         networkProviderButton = findViewById(R.id.network_button)
@@ -44,15 +36,6 @@ class ConfiguratorActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
         networkProviderButton.setOnClickListener { configuratorPresenter.setLocationProvider(NETWORK_PROVIDER) }
         checkLocationButton.setOnClickListener { configuratorPresenter.findLocation(locationProvider) }
     }
-
-    override fun onNothingSelected(parent: AdapterView<*>?) {
-
-    }
-
-    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-
-    }
-
 
     override fun goLocationView(location: LatLng) {
         val intent = Intent(this, LocationActivity::class.java)

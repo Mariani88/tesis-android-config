@@ -7,19 +7,6 @@
     tools:context="tesis.untref.com.alarmmanagerapp.configurator.view.ConfiguratorActivity"
     tools:layout_editor_absoluteY="81dp">
 
-    <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="9dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/networks_title" />
-
     <TextView
         android:id="@+id/networks_title"
         android:layout_width="wrap_content"
@@ -36,78 +23,85 @@
         android:id="@+id/connect_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="18dp"
+        android:layout_marginEnd="19dp"
+        android:layout_marginRight="19dp"
         android:text="@string/connect"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner" />
-
-    <TextView
-        android:id="@+id/connection_indicator"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:layout_marginEnd="23dp"
-        android:layout_marginRight="23dp"
-        android:layout_marginTop="32dp"
-        android:text="@string/not_connected"
+        app:layout_constraintBaseline_toBaselineOf="@+id/password_edit_text"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner" />
+        app:layout_constraintStart_toEndOf="@+id/password_edit_text" />
 
     <Button
         android:id="@+id/transfer_location_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="34dp"
+        android:layout_marginBottom="32dp"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
         android:enabled="false"
         android:text="@string/transfer_phone_location"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/check_location_button" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/check_location_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="19dp"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="30dp"
         android:enabled="true"
         android:text="@string/check_location"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gps_button" />
+        app:layout_constraintBottom_toTopOf="@+id/transfer_location_button"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <RadioButton
         android:id="@+id/gps_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="194dp"
+        android:layout_marginBottom="27dp"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
         android:checked="false"
-        android:layout_marginTop="8dp"
         android:text="@string/gps"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/connect_button" />
+        app:layout_constraintBottom_toTopOf="@+id/check_location_button"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <RadioButton
         android:id="@+id/network_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/network"
+        android:layout_marginBottom="28dp"
+        android:layout_marginLeft="119dp"
+        android:layout_marginStart="119dp"
         android:checked="true"
+        android:text="@string/network"
         app:layout_constraintBottom_toTopOf="@+id/check_location_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.552"
+        app:layout_constraintStart_toStartOf="@+id/check_location_button" />
+
+    <EditText
+        android:id="@+id/ssid_edit_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:hint="ssid"
+        android:inputType="textPersonName"
+        android:text=""
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/connect_button"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/networks_title" />
+
+    <EditText
+        android:id="@+id/password_edit_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="14dp"
+        android:layout_marginRight="14dp"
+        android:layout_marginTop="9dp"
+        android:ems="10"
+        android:hint="password"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toStartOf="@+id/connect_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ssid_edit_text" />
 
 </android.support.constraint.ConstraintLayout>
