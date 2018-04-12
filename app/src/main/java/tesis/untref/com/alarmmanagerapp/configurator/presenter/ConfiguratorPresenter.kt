@@ -1,6 +1,7 @@
 package tesis.untref.com.alarmmanagerapp.configurator.presenter
 
 import android.location.Location
+import android.location.LocationManager
 import com.google.android.gms.maps.model.LatLng
 import tesis.untref.com.alarmmanagerapp.configurator.view.ConfiguratorView
 import tesis.untref.com.alarmmanagerapp.location.infrastructure.LocationService
@@ -14,7 +15,10 @@ class ConfiguratorPresenter(private val configuratorView: ConfiguratorView, priv
     }
 
     fun setLocationProvider(locationProvider: String) {
-        configuratorView.configLocationProvider(locationProvider)
+        when (locationProvider) {
+            LocationManager.NETWORK_PROVIDER -> configuratorView.configProviderToNetwork()
+            LocationManager.GPS_PROVIDER -> configuratorView.configProviderToGPS()
+        }
     }
 }
 

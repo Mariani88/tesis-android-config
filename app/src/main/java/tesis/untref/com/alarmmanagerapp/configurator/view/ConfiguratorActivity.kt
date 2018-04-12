@@ -14,13 +14,12 @@ import tesis.untref.com.alarmmanagerapp.configurator.presenter.ConfiguratorPrese
 import tesis.untref.com.alarmmanagerapp.location.infrastructure.LocationService
 
 class ConfiguratorActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener, ConfiguratorView {
-
     private lateinit var configuratorPresenter: ConfiguratorPresenter
+
     private var locationProvider = NETWORK_PROVIDER
     private lateinit var gpsProviderButton: RadioButton
     private lateinit var networkProviderButton: RadioButton
     private lateinit var transferLocationButton: Button
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_configurator)
@@ -50,10 +49,10 @@ class ConfiguratorActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
 
     }
 
-
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
 
     }
+
 
     override fun goLocationView(location: LatLng) {
         val intent = Intent(this, LocationActivity::class.java)
@@ -67,15 +66,13 @@ class ConfiguratorActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
         Toast.makeText(this, "Location not found, retry please", LENGTH_LONG).show()
     }
 
-    override fun configLocationProvider(locationProvider: String) {
-        when (locationProvider) {
-            NETWORK_PROVIDER -> configProvider({ gpsProviderButton.isChecked = false }, NETWORK_PROVIDER)
-            GPS_PROVIDER -> configProvider({ networkProviderButton.isChecked = false }, GPS_PROVIDER)
-        }
+    override fun configProviderToNetwork() {
+        gpsProviderButton.isChecked = false
+        this.locationProvider = NETWORK_PROVIDER
     }
 
-    private fun configProvider(uncheckRadioButton: () -> Unit, selectedProvider: String) {
-        uncheckRadioButton()
-        this.locationProvider = selectedProvider
+    override fun configProviderToGPS() {
+        networkProviderButton.isChecked = false
+        this.locationProvider = GPS_PROVIDER
     }
 }
