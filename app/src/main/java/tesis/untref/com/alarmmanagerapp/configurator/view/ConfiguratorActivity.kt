@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity
 import android.widget.*
 import android.widget.Toast.LENGTH_LONG
 import com.google.android.gms.maps.model.LatLng
+import kotlinx.android.synthetic.main.activity_configurator.view.*
 import tesis.untref.com.alarmmanagerapp.R
 import tesis.untref.com.alarmmanagerapp.configurator.presenter.ConfiguratorPresenter
 import tesis.untref.com.alarmmanagerapp.location.infrastructure.LocationService
@@ -19,22 +20,26 @@ class ConfiguratorActivity : AppCompatActivity(), ConfiguratorView {
     private lateinit var gpsProviderButton: RadioButton
     private lateinit var networkProviderButton: RadioButton
     private lateinit var transferLocationButton: Button
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_configurator)
         configuratorPresenter = ConfiguratorPresenter(this, LocationService(this))
 
-
-
-
         gpsProviderButton = findViewById(R.id.gps_button)
         networkProviderButton = findViewById(R.id.network_button)
         transferLocationButton = findViewById(R.id.transfer_location_button)
-
         val checkLocationButton = findViewById<Button>(R.id.check_location_button)
         gpsProviderButton.setOnClickListener { configuratorPresenter.setLocationProvider(GPS_PROVIDER) }
         networkProviderButton.setOnClickListener { configuratorPresenter.setLocationProvider(NETWORK_PROVIDER) }
         checkLocationButton.setOnClickListener { configuratorPresenter.findLocation(locationProvider) }
+
+        val ssidField = findViewById<EditText>(R.id.ssid_edit_text)
+        val passwordField = findViewById<EditText>(R.id.password_edit_text)
+
+        val connectButton = findViewById<Button>(R.id.connect_button)
+        connectButton.setOnClickListener { ssidField.text }
+
     }
 
     override fun goLocationView(location: LatLng) {
