@@ -19,6 +19,7 @@ class ConfiguratorActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
     private var locationProvider = NETWORK_PROVIDER
     private lateinit var gpsProviderButton: RadioButton
     private lateinit var networkProviderButton: RadioButton
+    private lateinit var transferLocationButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +38,7 @@ class ConfiguratorActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
 
         gpsProviderButton = findViewById(R.id.gps_button)
         networkProviderButton = findViewById(R.id.network_button)
-
+        transferLocationButton = findViewById(R.id.transfer_location_button)
 
         val checkLocationButton = findViewById<Button>(R.id.check_location_button)
         gpsProviderButton.setOnClickListener { configuratorPresenter.setLocationProvider(GPS_PROVIDER) }
@@ -58,9 +59,11 @@ class ConfiguratorActivity : AppCompatActivity(), AdapterView.OnItemSelectedList
         val intent = Intent(this, LocationActivity::class.java)
         intent.putExtra("location", location)
         startActivity(intent)
+        transferLocationButton.isEnabled = true
     }
 
     override fun reportLocationNotFound() {
+        transferLocationButton.isEnabled = false
         Toast.makeText(this, "Location not found, retry please", LENGTH_LONG).show()
     }
 
