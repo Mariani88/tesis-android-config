@@ -18,9 +18,3 @@ class LocationService(private val context: Context) {
         return locationManager.getLastKnownLocation(networkProvider)
     }
 }
-
-
-
-
-
-

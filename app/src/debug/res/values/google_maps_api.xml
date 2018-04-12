@@ -1,0 +1,24 @@
+<resources>
+    <!--
+    TODO: Before you run your application, you need a Google Maps API key.
+
+    To get one, follow this link, follow the directions and press "Create" at the end:
+
+    https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=63:57:03:18:AB:F7:B0:0E:CE:7F:04:13:A6:86:6B:5A:08:2B:00:D3%3Btesis.untref.com.alarmmanagerapp.configurator.view
+
+    You can also add your credentials to an existing key, using these values:
+
+    Package name:
+    63:57:03:18:AB:F7:B0:0E:CE:7F:04:13:A6:86:6B:5A:08:2B:00:D3
+
+    SHA-1 certificate fingerprint:
+    63:57:03:18:AB:F7:B0:0E:CE:7F:04:13:A6:86:6B:5A:08:2B:00:D3
+
+    Alternatively, follow the directions here:
+    https://developers.google.com/maps/documentation/android/start#get-key
+
+    Once you have your key (it starts with "AIza"), replace the "google_maps_key"
+    string in this file.
+    -->
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDTNt9XZt_GFpDjcy_Hnw9-dEzz47-CkXg</string>
+</resources>

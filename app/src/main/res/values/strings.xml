@@ -9,6 +9,9 @@
 
     <string name="incompatibility_bluetooth">incompatibility with bluetooth</string>
     <string name="bluetooth_on_required">bluetooth on is required</string>
+    <string name="title_activity_location">Location</string>
+    <string name="check_location">check location</string>
+    <string name="search_location">search location</string>
 
 
 </resources>
