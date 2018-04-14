@@ -6,6 +6,7 @@ import android.bluetooth.BluetoothSocket
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import tesis.untref.com.alarmmanagerapp.configurator.BluetoothServiceProvider
 import java.io.IOException
 import java.util.*
 
@@ -27,7 +28,14 @@ class DetectBluetoothBroadcastReceiver(private val bluetoothAdapter: BluetoothAd
 
             val socket = bluetoothDevice.createRfcommSocketToServiceRecord(UUID.fromString(uuid))
             bluetoothAdapter.cancelDiscovery()
-            write("ready for action".toByteArray(), socket)
+
+            socket.connect()
+            BluetoothServiceProvider.bluetoothConnection = BluetoothConnection(socket)
+
+
+
+
+            //write("ready for action".toByteArray(), socket)
         }
     }
 
