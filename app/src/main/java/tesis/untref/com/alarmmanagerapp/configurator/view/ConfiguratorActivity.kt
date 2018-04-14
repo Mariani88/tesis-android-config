@@ -1,35 +1,66 @@
 package tesis.untref.com.alarmmanagerapp.configurator.view
 
-import android.support.v7.app.AppCompatActivity
+import android.content.Intent
+import android.location.LocationManager.GPS_PROVIDER
+import android.location.LocationManager.NETWORK_PROVIDER
 import android.os.Bundle
-import android.view.View
-import android.widget.AdapterView
-import android.widget.Spinner
+import android.support.v7.app.AppCompatActivity
+import android.widget.*
+import android.widget.Toast.LENGTH_LONG
+import com.google.android.gms.maps.model.LatLng
+import kotlinx.android.synthetic.main.activity_configurator.view.*
 import tesis.untref.com.alarmmanagerapp.R
+import tesis.untref.com.alarmmanagerapp.configurator.presenter.ConfiguratorPresenter
+import tesis.untref.com.alarmmanagerapp.location.infrastructure.LocationService
 
-import android.widget.ArrayAdapter
+class ConfiguratorActivity : AppCompatActivity(), ConfiguratorView {
+    private lateinit var configuratorPresenter: ConfiguratorPresenter
 
-class ConfiguratorActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
+    private var locationProvider = NETWORK_PROVIDER
+    private lateinit var gpsProviderButton: RadioButton
+    private lateinit var networkProviderButton: RadioButton
+    private lateinit var transferLocationButton: Button
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_configurator)
+        configuratorPresenter = ConfiguratorPresenter(this, LocationService(this))
 
-        val networks = arrayListOf("none","network 1", "network 2")
-        val networksSpinner = findViewById<Spinner>(R.id.spinner)
-        val adapter = ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, networks)
+        gpsProviderButton = findViewById(R.id.gps_button)
+        networkProviderButton = findViewById(R.id.network_button)
+        transferLocationButton = findViewById(R.id.transfer_location_button)
+        val checkLocationButton = findViewById<Button>(R.id.check_location_button)
+        gpsProviderButton.setOnClickListener { configuratorPresenter.setLocationProvider(GPS_PROVIDER) }
+        networkProviderButton.setOnClickListener { configuratorPresenter.setLocationProvider(NETWORK_PROVIDER) }
+        checkLocationButton.setOnClickListener { configuratorPresenter.findLocation(locationProvider) }
 
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        networksSpinner.adapter = adapter
-        networksSpinner.onItemSelectedListener = this
-        //networksSpinner.prompt = "select network"
+        val ssidField = findViewById<EditText>(R.id.ssid_edit_text)
+        val passwordField = findViewById<EditText>(R.id.password_edit_text)
+
+        val connectButton = findViewById<Button>(R.id.connect_button)
+        connectButton.setOnClickListener { ssidField.text }
+
     }
 
-    override fun onNothingSelected(parent: AdapterView<*>?) {
-
+    override fun goLocationView(location: LatLng) {
+        val intent = Intent(this, LocationActivity::class.java)
+        intent.putExtra("location", location)
+        startActivity(intent)
+        transferLocationButton.isEnabled = true
     }
 
-    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+    override fun reportLocationNotFound() {
+        transferLocationButton.isEnabled = false
+        Toast.makeText(this, "Location not found, retry please", LENGTH_LONG).show()
+    }
 
+    override fun configProviderToNetwork() {
+        gpsProviderButton.isChecked = false
+        this.locationProvider = NETWORK_PROVIDER
+    }
+
+    override fun configProviderToGPS() {
+        networkProviderButton.isChecked = false
+        this.locationProvider = GPS_PROVIDER
     }
 }
