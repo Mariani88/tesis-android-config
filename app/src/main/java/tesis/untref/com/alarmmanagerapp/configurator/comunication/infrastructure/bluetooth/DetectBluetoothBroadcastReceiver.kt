@@ -1,16 +1,13 @@
-package tesis.untref.com.alarmmanagerapp.configurator.comunication.infrastructure
+package tesis.untref.com.alarmmanagerapp.configurator.comunication.infrastructure.bluetooth
 
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
-import android.bluetooth.BluetoothSocket
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import tesis.untref.com.alarmmanagerapp.configurator.BluetoothServiceProvider
-import java.io.IOException
-import java.util.*
 
-class DetectBluetoothBroadcastReceiver(private val bluetoothAdapter: BluetoothAdapter): BroadcastReceiver() {
+class DetectBluetoothBroadcastReceiver(private val bluetoothAdapter: BluetoothAdapter) : BroadcastReceiver() {
 
     // Create a BroadcastReceiver for ACTION_FOUND
 
@@ -23,30 +20,11 @@ class DetectBluetoothBroadcastReceiver(private val bluetoothAdapter: BluetoothAd
 
             //todo cada vez que encuentra un device, lo guarda en esta variable, tener en cuenta si hay varios
             val bluetoothDevice = intent.getParcelableExtra<BluetoothDevice>(BluetoothDevice.EXTRA_DEVICE)
+            bluetoothAdapter.cancelDiscovery()
 
             //todo meter chequeo aca para que haga lo de abajo si encuentra el dispositivo buscado
 
-            val socket = bluetoothDevice.createRfcommSocketToServiceRecord(UUID.fromString(uuid))
-            bluetoothAdapter.cancelDiscovery()
-
-            socket.connect()
-            BluetoothServiceProvider.bluetoothConnection = BluetoothConnection(socket)
-
-
-
-
-            //write("ready for action".toByteArray(), socket)
-        }
-    }
-
-    private fun write(bytes:ByteArray, socket: BluetoothSocket) {
-
-        socket.connect()
-
-        try {
-            socket.outputStream.write(bytes)
-        } catch (e: IOException) {
-
+            BluetoothServiceProvider.bluetoothConnectionService = BluetoothConnectionService(bluetoothDevice, uuid)
         }
     }
 

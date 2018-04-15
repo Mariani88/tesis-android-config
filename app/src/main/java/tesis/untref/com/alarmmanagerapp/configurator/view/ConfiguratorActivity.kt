@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity
 import android.widget.*
 import android.widget.Toast.LENGTH_LONG
 import com.google.android.gms.maps.model.LatLng
-import kotlinx.android.synthetic.main.activity_configurator.view.*
 import tesis.untref.com.alarmmanagerapp.R
 import tesis.untref.com.alarmmanagerapp.configurator.BluetoothServiceProvider
 import tesis.untref.com.alarmmanagerapp.configurator.presenter.ConfiguratorPresenter
@@ -39,7 +38,7 @@ class ConfiguratorActivity : AppCompatActivity(), ConfiguratorView {
         val passwordField = findViewById<EditText>(R.id.password_edit_text)
 
         val connectButton = findViewById<Button>(R.id.connect_button)
-        connectButton.setOnClickListener { BluetoothServiceProvider.bluetoothConnection!!.write(ssidField.text.toString().toByteArray()) }
+        connectButton.setOnClickListener { BluetoothServiceProvider.bluetoothConnectionService!!.write(ssidField.text.toString().toByteArray()) }
 
     }
 
