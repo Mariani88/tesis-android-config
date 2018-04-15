@@ -5,12 +5,18 @@ import android.location.LocationManager.GPS_PROVIDER
 import android.location.LocationManager.NETWORK_PROVIDER
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.widget.*
+import android.widget.Button
+import android.widget.EditText
+import android.widget.RadioButton
+import android.widget.Toast
 import android.widget.Toast.LENGTH_LONG
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.android.gms.maps.model.LatLng
 import tesis.untref.com.alarmmanagerapp.R
 import tesis.untref.com.alarmmanagerapp.configurator.BluetoothServiceProvider
+import tesis.untref.com.alarmmanagerapp.configurator.comunication.domain.*
 import tesis.untref.com.alarmmanagerapp.configurator.presenter.ConfiguratorPresenter
+import tesis.untref.com.alarmmanagerapp.location.domain.CardinalPoint
 import tesis.untref.com.alarmmanagerapp.location.infrastructure.LocationService
 
 class ConfiguratorActivity : AppCompatActivity(), ConfiguratorView {
@@ -32,13 +38,29 @@ class ConfiguratorActivity : AppCompatActivity(), ConfiguratorView {
         val checkLocationButton = findViewById<Button>(R.id.check_location_button)
         gpsProviderButton.setOnClickListener { configuratorPresenter.setLocationProvider(GPS_PROVIDER) }
         networkProviderButton.setOnClickListener { configuratorPresenter.setLocationProvider(NETWORK_PROVIDER) }
-        checkLocationButton.setOnClickListener { configuratorPresenter.findLocation(locationProvider) }
+        checkLocationButton.setOnClickListener {
+
+            configuratorPresenter.findLocation(locationProvider)
+            val value = ObjectMapper().writeValueAsBytes(
+                    LocationMessage(AlarmAction.SET_LOCATION,
+                            LatitudeMessage(23,34,34.0, CardinalPoint.NORTH),
+                            LongitudeMessage(32,45,22.0, CardinalPoint.WEST)
+                            )
+            )
+            BluetoothServiceProvider.bluetoothConnectionService!!.write(value)
+        }
 
         val ssidField = findViewById<EditText>(R.id.ssid_edit_text)
         val passwordField = findViewById<EditText>(R.id.password_edit_text)
 
         val connectButton = findViewById<Button>(R.id.connect_button)
-        connectButton.setOnClickListener { BluetoothServiceProvider.bluetoothConnectionService!!.write(ssidField.text.toString().toByteArray()) }
+        connectButton.setOnClickListener {
+
+            val value = ObjectMapper().writeValueAsBytes(WifiConnectionMessage(AlarmAction.CONNECT, ssidField.text.toString(), "pass"))
+
+            //BluetoothServiceProvider.bluetoothConnectionService!!.write(ssidField.text.toString().toByteArray())
+            BluetoothServiceProvider.bluetoothConnectionService!!.write(value)
+        }
 
     }
 
