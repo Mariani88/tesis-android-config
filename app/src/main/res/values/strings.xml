@@ -14,6 +14,7 @@
     <string name="search_location">search location</string>
     <string name="gps">GPS</string>
     <string name="network">network</string>
+    <string name="error_to_connect_bluetooth">\"error to connect\"</string>
 
 
 </resources>

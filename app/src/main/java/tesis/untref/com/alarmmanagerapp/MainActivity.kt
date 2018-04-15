@@ -1,35 +1,31 @@
 package tesis.untref.com.alarmmanagerapp
 
 import android.bluetooth.BluetoothAdapter
-import android.bluetooth.BluetoothDevice
-import android.content.BroadcastReceiver
 import android.content.Intent
-import android.content.IntentFilter
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
-import tesis.untref.com.alarmmanagerapp.configurator.comunication.infrastructure.bluetooth.DetectBluetoothBroadcastReceiver
+import tesis.untref.com.alarmmanagerapp.configurator.comunication.infrastructure.bluetooth.BluetoothConnectionCreationService
 import tesis.untref.com.alarmmanagerapp.configurator.presenter.MainPresenter
 import tesis.untref.com.alarmmanagerapp.configurator.view.ConfiguratorActivity
 import tesis.untref.com.alarmmanagerapp.configurator.view.MainView
 
 class MainActivity : AppCompatActivity(), MainView {
+    private val mainPresenter = MainPresenter(this, BluetoothConnectionCreationService(this))
 
-    private val mainPresenter = MainPresenter(this)
     private lateinit var retryButton: Button
     private lateinit var reporterTextView: TextView
-
-    private lateinit var broadcastReceiver: BroadcastReceiver
+    //private lateinit var broadcastReceiver: BroadcastReceiver
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         retryButton = findViewById(R.id.retry_button)
+        retryButton.setOnClickListener { mainPresenter.checkBluetoothConnection(BluetoothAdapter.getDefaultAdapter()) }
         reporterTextView = findViewById(R.id.reporter_text_view)
         mainPresenter.checkBluetoothConnection(BluetoothAdapter.getDefaultAdapter())
-        retryButton.setOnClickListener { mainPresenter.checkBluetoothConnection(BluetoothAdapter.getDefaultAdapter()) }
     }
 
     override fun reportIncompatibilityBluetooth() {
@@ -43,19 +39,20 @@ class MainActivity : AppCompatActivity(), MainView {
     }
 
     override fun goNextView() {
-        val bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
+        /*val bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
         bluetoothAdapter.startDiscovery()
         this.broadcastReceiver = DetectBluetoothBroadcastReceiver(bluetoothAdapter)
         val intentFilter = IntentFilter(BluetoothDevice.ACTION_FOUND)
-        registerReceiver(broadcastReceiver, intentFilter)
+        registerReceiver(broadcastReceiver, intentFilter)*/
+
         val intent = Intent(this, ConfiguratorActivity::class.java)
         startActivity(intent)
         finish()
     }
 
-    override fun onDestroy() {
-        unregisterReceiver(broadcastReceiver)
-        super.onDestroy()
+    override fun onBackPressed() {
+        mainPresenter.unregisterReceiver()
+        super.onBackPressed()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -66,6 +63,12 @@ class MainActivity : AppCompatActivity(), MainView {
 
     override fun reportBluetoothOnIsRequired() {
         reporterTextView.text = resources.getString(R.string.bluetooth_on_required)
+        reporterTextView.visibility = View.VISIBLE
+        retryButton.visibility = View.VISIBLE
+    }
+
+    override fun reportConnectionError() {
+        reporterTextView.text = resources.getString(R.string.error_to_connect_bluetooth)
         reporterTextView.visibility = View.VISIBLE
         retryButton.visibility = View.VISIBLE
     }

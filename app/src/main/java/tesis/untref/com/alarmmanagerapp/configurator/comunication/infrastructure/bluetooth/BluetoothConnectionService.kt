@@ -2,7 +2,6 @@ package tesis.untref.com.alarmmanagerapp.configurator.comunication.infrastructur
 
 import android.bluetooth.BluetoothDevice
 import android.util.Log
-import java.io.IOException
 import java.util.*
 
 class BluetoothConnectionService(private val bluetoothDevice: BluetoothDevice, private val uuid: String) {
@@ -28,21 +27,17 @@ class BluetoothConnectionService(private val bluetoothDevice: BluetoothDevice, p
     }
 
     private fun connectToDevice() {
-        var temporalBluetoothConnectionThread: BluetoothConnectionThread? = null
-
-        try {
-            val socket = bluetoothDevice.createRfcommSocketToServiceRecord(UUID.fromString(uuid))
-            socket.connect()
-            temporalBluetoothConnectionThread = BluetoothConnectionThread(socket)
-            temporalBluetoothConnectionThread.start()
-        } catch (e: IOException) {
-            Log.d(TAG, "error when connecting to remote device", e)
-        }
-
+        Log.d(TAG, "trying connecting")
+        var temporalBluetoothConnectionThread: BluetoothConnectionThread?
+        val socket = bluetoothDevice.createRfcommSocketToServiceRecord(UUID.fromString(uuid))
+        socket.connect()
+        Log.d(TAG, "device connected")
+        temporalBluetoothConnectionThread = BluetoothConnectionThread(socket)
+        temporalBluetoothConnectionThread.start()
         bluetoothConnectionThread = temporalBluetoothConnectionThread
     }
 
     companion object {
-        private const val TAG = "MY_APP_DEBUG_TAG"
+        private const val TAG = "BT_CON_SERVICE"
     }
 }

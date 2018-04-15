@@ -85,4 +85,8 @@ class ConfiguratorActivity : AppCompatActivity(), ConfiguratorView {
         networkProviderButton.isChecked = false
         this.locationProvider = GPS_PROVIDER
     }
+
+    override fun onBackPressed() {
+        Toast.makeText(this, "can not back", LENGTH_LONG).show()
+    }
 }

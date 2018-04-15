@@ -5,4 +5,5 @@ interface MainView {
     fun reportBluetoothIsOff()
     fun goNextView()
     fun reportBluetoothOnIsRequired()
+    fun reportConnectionError()
 }

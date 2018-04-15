@@ -1,9 +1,10 @@
 package tesis.untref.com.alarmmanagerapp.configurator.presenter
 
 import android.bluetooth.BluetoothAdapter
+import tesis.untref.com.alarmmanagerapp.configurator.comunication.infrastructure.bluetooth.BluetoothConnectionCreationService
 import tesis.untref.com.alarmmanagerapp.configurator.view.MainView
 
-class MainPresenter(private val mainView: MainView) {
+class MainPresenter(private val mainView: MainView, private val bluetoothConnectionCreationService: BluetoothConnectionCreationService) {
 
     fun checkBluetoothConnection(bluetoothAdapter: BluetoothAdapter?) {
         bluetoothAdapter?.let { checkBluetoothState(it) }
@@ -11,14 +12,23 @@ class MainPresenter(private val mainView: MainView) {
     }
 
     fun checkUserActivatedBluetooth(userActivatedBluetooth: Boolean) {
-        if (userActivatedBluetooth) mainView.goNextView() else mainView.reportBluetoothOnIsRequired()
+        if (userActivatedBluetooth) connectToBluetooth() else mainView.reportBluetoothOnIsRequired()
     }
 
     private fun checkBluetoothState(bluetoothAdapter: BluetoothAdapter) {
         if (bluetoothAdapter.isEnabled) {
-            mainView.goNextView()
+            connectToBluetooth()
+
         } else {
             mainView.reportBluetoothIsOff()
         }
+    }
+
+    private fun connectToBluetooth() {
+        bluetoothConnectionCreationService.createConnection({ mainView.goNextView() }, { mainView.reportConnectionError() }, {unregisterReceiver()})
+    }
+
+    fun unregisterReceiver() {
+        bluetoothConnectionCreationService.unregisterReceiver()
     }
 }

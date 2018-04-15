@@ -5,10 +5,6 @@ import tesis.untref.com.alarmmanagerapp.configurator.comunication.infrastructure
 class BluetoothServiceProvider {
 
     companion object {
-
         var bluetoothConnectionService: BluetoothConnectionService? = null
-
-
     }
-
 }

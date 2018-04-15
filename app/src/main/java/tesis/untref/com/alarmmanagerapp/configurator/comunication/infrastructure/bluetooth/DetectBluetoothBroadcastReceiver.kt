@@ -5,30 +5,44 @@ import android.bluetooth.BluetoothDevice
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import tesis.untref.com.alarmmanagerapp.configurator.BluetoothServiceProvider
+import java.io.IOException
 
-class DetectBluetoothBroadcastReceiver(private val bluetoothAdapter: BluetoothAdapter) : BroadcastReceiver() {
-
-    // Create a BroadcastReceiver for ACTION_FOUND
+class DetectBluetoothBroadcastReceiver(private val bluetoothAdapter: BluetoothAdapter,
+                                       private val onSuccessfulConnection: () -> Unit,
+                                       private val onErrorConnection: () -> Unit,
+                                       private val onFinallyProcess: () -> Unit) : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
         val action = intent.action
 
-        // When device discovery finds a
         if (BluetoothDevice.ACTION_FOUND == action) {
-            // Get the object from the Intent BluetoothDevice
 
+            Log.d(TAG, "searching device")
             //todo cada vez que encuentra un device, lo guarda en esta variable, tener en cuenta si hay varios
             val bluetoothDevice = intent.getParcelableExtra<BluetoothDevice>(BluetoothDevice.EXTRA_DEVICE)
-            bluetoothAdapter.cancelDiscovery()
 
-            //todo meter chequeo aca para que haga lo de abajo si encuentra el dispositivo buscado
+            if (bluetoothDevice.name == ALARM_BLUETOOTH_NAME) {
+                Log.d(TAG, "device found")
+                bluetoothAdapter.cancelDiscovery()
 
-            BluetoothServiceProvider.bluetoothConnectionService = BluetoothConnectionService(bluetoothDevice, uuid)
+                try {
+                    BluetoothServiceProvider.bluetoothConnectionService = BluetoothConnectionService(bluetoothDevice, uuid)
+                    onSuccessfulConnection()
+                } catch (e: IOException) {
+                    Log.d(TAG, "error when connecting to remote device", e)
+                    onErrorConnection()
+                }finally {
+                    onFinallyProcess()
+                }
+            }
         }
     }
 
     companion object {
+        private const val ALARM_BLUETOOTH_NAME = "HC-05"
         private const val uuid = "00001101-0000-1000-8000-00805F9B34FB"
+        private const val TAG = "ERROR_CONNECTION"
     }
 }
