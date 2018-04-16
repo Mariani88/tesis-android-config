@@ -87,6 +87,7 @@ class ConfiguratorActivity : AppCompatActivity(), ConfiguratorView {
     }
 
     override fun onBackPressed() {
-        Toast.makeText(this, "can not back", LENGTH_LONG).show()
+        BluetoothServiceProvider.bluetoothConnectionService!!.closeConnection()
+        super.onBackPressed()
     }
 }

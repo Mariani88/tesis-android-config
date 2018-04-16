@@ -2,6 +2,7 @@ package tesis.untref.com.alarmmanagerapp.configurator.comunication.infrastructur
 
 import android.bluetooth.BluetoothSocket
 import android.util.Log
+import tesis.untref.com.alarmmanagerapp.utils.TAG
 import java.io.IOException
 
 class BluetoothConnectionThread(private val bluetoothSocket: BluetoothSocket): Thread()  {
@@ -27,8 +28,4 @@ class BluetoothConnectionThread(private val bluetoothSocket: BluetoothSocket): T
     }
 
     fun isConnected() = bluetoothSocket.isConnected
-
-    companion object {
-        private const val TAG = "BT_CONNECTION_THREAD"
-    }
 }

@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import tesis.untref.com.alarmmanagerapp.configurator.BluetoothServiceProvider
+import tesis.untref.com.alarmmanagerapp.utils.TAG
 import java.io.IOException
 
 class DetectBluetoothBroadcastReceiver(private val bluetoothAdapter: BluetoothAdapter,
@@ -43,6 +44,5 @@ class DetectBluetoothBroadcastReceiver(private val bluetoothAdapter: BluetoothAd
     companion object {
         private const val ALARM_BLUETOOTH_NAME = "HC-05"
         private const val uuid = "00001101-0000-1000-8000-00805F9B34FB"
-        private const val TAG = "ERROR_CONNECTION"
     }
 }

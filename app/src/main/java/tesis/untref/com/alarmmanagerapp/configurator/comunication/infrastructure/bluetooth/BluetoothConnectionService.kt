@@ -2,6 +2,7 @@ package tesis.untref.com.alarmmanagerapp.configurator.comunication.infrastructur
 
 import android.bluetooth.BluetoothDevice
 import android.util.Log
+import tesis.untref.com.alarmmanagerapp.utils.TAG
 import java.util.*
 
 class BluetoothConnectionService(private val bluetoothDevice: BluetoothDevice, private val uuid: String) {
@@ -35,9 +36,5 @@ class BluetoothConnectionService(private val bluetoothDevice: BluetoothDevice, p
         temporalBluetoothConnectionThread = BluetoothConnectionThread(socket)
         temporalBluetoothConnectionThread.start()
         bluetoothConnectionThread = temporalBluetoothConnectionThread
-    }
-
-    companion object {
-        private const val TAG = "BT_CON_SERVICE"
     }
 }

@@ -17,7 +17,6 @@ class MainActivity : AppCompatActivity(), MainView {
 
     private lateinit var retryButton: Button
     private lateinit var reporterTextView: TextView
-    //private lateinit var broadcastReceiver: BroadcastReceiver
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,12 +38,6 @@ class MainActivity : AppCompatActivity(), MainView {
     }
 
     override fun goNextView() {
-        /*val bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
-        bluetoothAdapter.startDiscovery()
-        this.broadcastReceiver = DetectBluetoothBroadcastReceiver(bluetoothAdapter)
-        val intentFilter = IntentFilter(BluetoothDevice.ACTION_FOUND)
-        registerReceiver(broadcastReceiver, intentFilter)*/
-
         val intent = Intent(this, ConfiguratorActivity::class.java)
         startActivity(intent)
         finish()
