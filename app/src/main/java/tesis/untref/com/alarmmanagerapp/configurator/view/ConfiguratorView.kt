@@ -7,4 +7,5 @@ interface ConfiguratorView {
     fun reportLocationNotFound()
     fun configProviderToNetwork()
     fun configProviderToGPS()
+    fun reportMessageSent(viewMessage: String)
 }

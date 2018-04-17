@@ -5,7 +5,7 @@ import android.util.Log
 import tesis.untref.com.alarmmanagerapp.utils.TAG
 import java.util.*
 
-class BluetoothConnectionService(private val bluetoothDevice: BluetoothDevice, private val uuid: String) {
+class BluetoothConnection(private val bluetoothDevice: BluetoothDevice, private val uuid: String) {
 
     private var bluetoothConnectionThread: BluetoothConnectionThread? = null
 

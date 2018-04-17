@@ -12,4 +12,4 @@ class LocationMessage(
 
         @get:JsonProperty("longitude")
         val longitude: LongitudeMessage
-)
+): Message

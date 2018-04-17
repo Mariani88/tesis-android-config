@@ -16,5 +16,4 @@ class LatitudeMessage(
 
         @get:JsonProperty("cardinal_point")
         val cardinalPoint: CardinalPoint
-) {
-}
+) : Message

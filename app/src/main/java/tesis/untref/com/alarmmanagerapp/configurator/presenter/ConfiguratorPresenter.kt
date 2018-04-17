@@ -2,11 +2,18 @@ package tesis.untref.com.alarmmanagerapp.configurator.presenter
 
 import android.location.Location
 import android.location.LocationManager
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.android.gms.maps.model.LatLng
+import tesis.untref.com.alarmmanagerapp.configurator.BluetoothConnectionProvider.Companion.bluetoothConnection
+import tesis.untref.com.alarmmanagerapp.configurator.comunication.domain.AlarmAction
+import tesis.untref.com.alarmmanagerapp.configurator.comunication.domain.WifiConnectionMessage
+import tesis.untref.com.alarmmanagerapp.configurator.comunication.infrastructure.bluetooth.BluetoothDelivery
 import tesis.untref.com.alarmmanagerapp.configurator.view.ConfiguratorView
 import tesis.untref.com.alarmmanagerapp.location.infrastructure.LocationService
 
 class ConfiguratorPresenter(private val configuratorView: ConfiguratorView, private val locationService: LocationService) {
+
+    private val deliveryMessage = BluetoothDelivery(bluetoothConnection!!, ObjectMapper())
 
     fun findLocation(locationProvider: String) {
         locationService
@@ -20,6 +27,11 @@ class ConfiguratorPresenter(private val configuratorView: ConfiguratorView, priv
             LocationManager.GPS_PROVIDER -> configuratorView.configProviderToGPS()
         }
     }
+
+    fun sendWifiConnectionMessage(ssid: String, password: String) {
+        deliveryMessage.send(WifiConnectionMessage(AlarmAction.CONNECT, ssid, password))
+        configuratorView.reportMessageSent("connection message sent")
+    }
 }
 
-private fun Location.toGoogleMapsCoordinate(): LatLng = LatLng(latitude, longitude)
+private fun Location.toGoogleMapsCoordinate() = LatLng(latitude, longitude)

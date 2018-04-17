@@ -6,7 +6,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.util.Log
-import tesis.untref.com.alarmmanagerapp.configurator.BluetoothServiceProvider
+import tesis.untref.com.alarmmanagerapp.configurator.BluetoothConnectionProvider
 import tesis.untref.com.alarmmanagerapp.utils.TAG
 import java.io.IOException
 
@@ -29,7 +29,7 @@ class DetectBluetoothBroadcastReceiver(private val bluetoothAdapter: BluetoothAd
                 bluetoothAdapter.cancelDiscovery()
 
                 try {
-                    BluetoothServiceProvider.bluetoothConnectionService = BluetoothConnectionService(bluetoothDevice, uuid)
+                    BluetoothConnectionProvider.bluetoothConnection = BluetoothConnection(bluetoothDevice, uuid)
                     onSuccessfulConnection()
                 } catch (e: IOException) {
                     Log.d(TAG, "error when connecting to remote device", e)

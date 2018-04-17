@@ -10,4 +10,4 @@ class WifiConnectionMessage(
         val ssid: String,
 
         @get:JsonProperty("password")
-        val password: String)
+        val password: String): Message

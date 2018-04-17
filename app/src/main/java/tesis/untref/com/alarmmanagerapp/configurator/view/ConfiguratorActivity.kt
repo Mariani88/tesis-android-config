@@ -13,8 +13,12 @@ import android.widget.Toast.LENGTH_LONG
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.android.gms.maps.model.LatLng
 import tesis.untref.com.alarmmanagerapp.R
-import tesis.untref.com.alarmmanagerapp.configurator.BluetoothServiceProvider
-import tesis.untref.com.alarmmanagerapp.configurator.comunication.domain.*
+import tesis.untref.com.alarmmanagerapp.configurator.BluetoothConnectionProvider
+import tesis.untref.com.alarmmanagerapp.configurator.BluetoothConnectionProvider.Companion.bluetoothConnection
+import tesis.untref.com.alarmmanagerapp.configurator.comunication.domain.AlarmAction
+import tesis.untref.com.alarmmanagerapp.configurator.comunication.domain.LatitudeMessage
+import tesis.untref.com.alarmmanagerapp.configurator.comunication.domain.LocationMessage
+import tesis.untref.com.alarmmanagerapp.configurator.comunication.domain.LongitudeMessage
 import tesis.untref.com.alarmmanagerapp.configurator.presenter.ConfiguratorPresenter
 import tesis.untref.com.alarmmanagerapp.location.domain.CardinalPoint
 import tesis.untref.com.alarmmanagerapp.location.infrastructure.LocationService
@@ -23,10 +27,10 @@ class ConfiguratorActivity : AppCompatActivity(), ConfiguratorView {
     private lateinit var configuratorPresenter: ConfiguratorPresenter
 
     private var locationProvider = NETWORK_PROVIDER
+
     private lateinit var gpsProviderButton: RadioButton
     private lateinit var networkProviderButton: RadioButton
     private lateinit var transferLocationButton: Button
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_configurator)
@@ -43,11 +47,11 @@ class ConfiguratorActivity : AppCompatActivity(), ConfiguratorView {
             configuratorPresenter.findLocation(locationProvider)
             val value = ObjectMapper().writeValueAsBytes(
                     LocationMessage(AlarmAction.SET_LOCATION,
-                            LatitudeMessage(23,34,34.0, CardinalPoint.NORTH),
-                            LongitudeMessage(32,45,22.0, CardinalPoint.WEST)
-                            )
+                            LatitudeMessage(23, 34, 34.0, CardinalPoint.NORTH),
+                            LongitudeMessage(32, 45, 22.0, CardinalPoint.WEST)
+                    )
             )
-            BluetoothServiceProvider.bluetoothConnectionService!!.write(value)
+            BluetoothConnectionProvider.bluetoothConnection!!.write(value)
         }
 
         val ssidField = findViewById<EditText>(R.id.ssid_edit_text)
@@ -55,11 +59,8 @@ class ConfiguratorActivity : AppCompatActivity(), ConfiguratorView {
 
         val connectButton = findViewById<Button>(R.id.connect_button)
         connectButton.setOnClickListener {
-
-            val value = ObjectMapper().writeValueAsBytes(WifiConnectionMessage(AlarmAction.CONNECT, ssidField.text.toString(), "pass"))
-
-            //BluetoothServiceProvider.bluetoothConnectionService!!.write(ssidField.text.toString().toByteArray())
-            BluetoothServiceProvider.bluetoothConnectionService!!.write(value)
+            configuratorPresenter.sendWifiConnectionMessage(ssidField.text.toString(),
+                    passwordField.text.toString())
         }
 
     }
@@ -87,7 +88,11 @@ class ConfiguratorActivity : AppCompatActivity(), ConfiguratorView {
     }
 
     override fun onBackPressed() {
-        BluetoothServiceProvider.bluetoothConnectionService!!.closeConnection()
+        BluetoothConnectionProvider.bluetoothConnection!!.closeConnection()
         super.onBackPressed()
+    }
+
+    override fun reportMessageSent(viewMessage: String) {
+        Toast.makeText(this, viewMessage, LENGTH_LONG).show()
     }
 }
