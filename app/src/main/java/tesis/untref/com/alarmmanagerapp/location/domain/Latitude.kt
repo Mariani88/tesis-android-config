@@ -7,6 +7,7 @@ data class Latitude private constructor(val degree: Int, val minute: Int, val se
     companion object {
 
         fun create(latitude: Double): Latitude {
+            check(-90 <=latitude && latitude <= 90.0, {"latitude out of range -90 - 90 ($latitude)"})
             val modLatitude = latitude.absoluteValue
             val degree = modLatitude.toInt()
             val minute = ((modLatitude - degree) * 60).toInt()
