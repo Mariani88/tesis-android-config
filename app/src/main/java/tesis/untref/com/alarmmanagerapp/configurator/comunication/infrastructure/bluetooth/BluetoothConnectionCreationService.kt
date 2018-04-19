@@ -8,11 +8,11 @@ import android.content.IntentFilter
 import android.util.Log
 import tesis.untref.com.alarmmanagerapp.utils.TAG
 
-class BluetoothConnectionCreationService(private val context: Context) {
+open class BluetoothConnectionCreationService(private val context: Context) {
 
     private lateinit var broadcastReceiver: BroadcastReceiver
 
-    fun createConnection(onSuccessfulConnection: () -> Unit, onErrorConnection: () -> Unit, onFinallyProcess: () -> Unit) {
+    open fun createConnection(onSuccessfulConnection: () -> Unit, onErrorConnection: () -> Unit, onFinallyProcess: () -> Unit) {
         val bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
         val discoveryStarted = bluetoothAdapter.startDiscovery()
         Log.d(TAG, "init discovery:$discoveryStarted")
@@ -21,7 +21,7 @@ class BluetoothConnectionCreationService(private val context: Context) {
         context.registerReceiver(broadcastReceiver, intentFilter)
     }
 
-    fun unregisterReceiver() {
+    open fun unregisterReceiver() {
         Log.d(TAG, "Unregister broadcast receive")
         context.unregisterReceiver(broadcastReceiver)
     }

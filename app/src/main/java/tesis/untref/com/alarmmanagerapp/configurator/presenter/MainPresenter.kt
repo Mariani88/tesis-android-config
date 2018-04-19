@@ -15,6 +15,10 @@ class MainPresenter(private val mainView: MainView, private val bluetoothConnect
         if (userActivatedBluetooth) connectToBluetooth() else mainView.reportBluetoothOnIsRequired()
     }
 
+    fun unregisterReceiver() {
+        bluetoothConnectionCreationService.unregisterReceiver()
+    }
+
     private fun checkBluetoothState(bluetoothAdapter: BluetoothAdapter) {
         if (bluetoothAdapter.isEnabled) {
             connectToBluetooth()
@@ -26,9 +30,5 @@ class MainPresenter(private val mainView: MainView, private val bluetoothConnect
 
     private fun connectToBluetooth() {
         bluetoothConnectionCreationService.createConnection({ mainView.goNextView() }, { mainView.reportConnectionError() }, {unregisterReceiver()})
-    }
-
-    fun unregisterReceiver() {
-        bluetoothConnectionCreationService.unregisterReceiver()
     }
 }

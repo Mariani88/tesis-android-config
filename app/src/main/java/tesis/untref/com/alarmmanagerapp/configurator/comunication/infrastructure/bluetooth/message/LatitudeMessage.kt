@@ -1,6 +1,7 @@
-package tesis.untref.com.alarmmanagerapp.configurator.comunication.domain
+package tesis.untref.com.alarmmanagerapp.configurator.comunication.infrastructure.bluetooth.message
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import tesis.untref.com.alarmmanagerapp.configurator.comunication.domain.Message
 import tesis.untref.com.alarmmanagerapp.location.domain.CardinalPoint
 
 class LatitudeMessage(

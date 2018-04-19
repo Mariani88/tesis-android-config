@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.android.gms.maps.model.LatLng
 import tesis.untref.com.alarmmanagerapp.configurator.BluetoothConnectionProvider.Companion.bluetoothConnection
 import tesis.untref.com.alarmmanagerapp.configurator.comunication.domain.AlarmAction
-import tesis.untref.com.alarmmanagerapp.configurator.comunication.domain.WifiConnectionMessage
+import tesis.untref.com.alarmmanagerapp.configurator.comunication.infrastructure.bluetooth.message.WifiConnectionMessage
 import tesis.untref.com.alarmmanagerapp.configurator.comunication.infrastructure.bluetooth.BluetoothDelivery
 import tesis.untref.com.alarmmanagerapp.configurator.view.ConfiguratorView
 import tesis.untref.com.alarmmanagerapp.location.infrastructure.LocationService
@@ -31,6 +31,10 @@ class ConfiguratorPresenter(private val configuratorView: ConfiguratorView, priv
     fun sendWifiConnectionMessage(ssid: String, password: String) {
         deliveryMessage.send(WifiConnectionMessage(AlarmAction.CONNECT, ssid, password))
         configuratorView.reportMessageSent("connection message sent")
+    }
+
+    fun sendLocationConnectionMessage() {
+
     }
 }
 
