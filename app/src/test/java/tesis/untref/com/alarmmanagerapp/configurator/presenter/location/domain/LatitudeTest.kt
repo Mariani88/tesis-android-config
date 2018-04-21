@@ -17,9 +17,9 @@ class LatitudeTest {
         private const val A_INVALID_NEGATIVE_GOOGLE_MAPS_LATITUDE = -90.1
         private const val A_GOOGLE_MAPS_LATITUDE = 59.96
         private const val A_NEGATIVE_GOOGLE_MAPS_LATITUDE = -59.96
-        private const val DEGREE = 59
-        private const val MINUTE = 57
-        private const val SECOND = 36.0
+        private const val EXPECTED_DEGREE = 59
+        private const val EXPECTED_MINUTE = 57
+        private const val EXPECTED_SECOND = 36.0
         private val CARDINAL_POINT_SOUTH = CardinalPoint.SOUTH
         private const val DELTA = 0.000001
         private const val A_INVALID_GOOGLE_MAPS_LATITUDE = 90.1
@@ -80,9 +80,10 @@ class LatitudeTest {
     }
 
     private fun thenRetrieveACorrectLatitude() {
-        assertThat(retrievedLatitude.degree).isEqualTo(DEGREE)
-        assertThat(retrievedLatitude.minute).isEqualTo(MINUTE)
-        assertThat(retrievedLatitude.second).isBetween(SECOND, SECOND + DELTA)
+        assertThat(exception).isNull()
+        assertThat(retrievedLatitude.degree).isEqualTo(EXPECTED_DEGREE)
+        assertThat(retrievedLatitude.minute).isEqualTo(EXPECTED_MINUTE)
+        assertThat(retrievedLatitude.second).isBetween(EXPECTED_SECOND, EXPECTED_SECOND + DELTA)
         assertThat(retrievedLatitude.cardinalPoint).isEqualTo(expectedCardinalPoint)
     }
 
