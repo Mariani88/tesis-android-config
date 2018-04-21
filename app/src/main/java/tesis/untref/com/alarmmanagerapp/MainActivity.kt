@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
-import tesis.untref.com.alarmmanagerapp.configurator.comunication.infrastructure.bluetooth.BluetoothConnectionCreationService
+import tesis.untref.com.alarmmanagerapp.configurator.comunication.infrastructure.bluetooth.connection.BluetoothConnectionCreationService
 import tesis.untref.com.alarmmanagerapp.configurator.presenter.MainPresenter
 import tesis.untref.com.alarmmanagerapp.configurator.view.ConfiguratorActivity
 import tesis.untref.com.alarmmanagerapp.configurator.view.MainView

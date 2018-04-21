@@ -4,10 +4,10 @@ import android.location.Location
 import android.location.LocationManager
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.android.gms.maps.model.LatLng
-import tesis.untref.com.alarmmanagerapp.configurator.BluetoothConnectionProvider.Companion.bluetoothConnection
+import tesis.untref.com.alarmmanagerapp.configurator.comunication.infrastructure.bluetooth.connection.BluetoothConnectionProvider.Companion.bluetoothConnection
 import tesis.untref.com.alarmmanagerapp.configurator.comunication.domain.AlarmAction
-import tesis.untref.com.alarmmanagerapp.configurator.comunication.infrastructure.bluetooth.message.WifiConnectionMessage
-import tesis.untref.com.alarmmanagerapp.configurator.comunication.infrastructure.bluetooth.BluetoothDelivery
+import tesis.untref.com.alarmmanagerapp.configurator.comunication.infrastructure.bluetooth.delivery.message.WifiConnectionMessage
+import tesis.untref.com.alarmmanagerapp.configurator.comunication.infrastructure.bluetooth.delivery.BluetoothDelivery
 import tesis.untref.com.alarmmanagerapp.configurator.view.ConfiguratorView
 import tesis.untref.com.alarmmanagerapp.location.infrastructure.LocationService
 

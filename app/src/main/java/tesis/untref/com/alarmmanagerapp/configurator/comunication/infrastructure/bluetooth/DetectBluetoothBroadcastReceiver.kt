@@ -6,7 +6,8 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.util.Log
-import tesis.untref.com.alarmmanagerapp.configurator.BluetoothConnectionProvider
+import tesis.untref.com.alarmmanagerapp.configurator.comunication.infrastructure.bluetooth.connection.BluetoothConnection
+import tesis.untref.com.alarmmanagerapp.configurator.comunication.infrastructure.bluetooth.connection.BluetoothConnectionProvider
 import tesis.untref.com.alarmmanagerapp.utils.TAG
 import java.io.IOException
 

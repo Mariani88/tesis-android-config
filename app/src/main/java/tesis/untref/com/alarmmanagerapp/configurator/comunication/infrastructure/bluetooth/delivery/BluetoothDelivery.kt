@@ -1,8 +1,9 @@
-package tesis.untref.com.alarmmanagerapp.configurator.comunication.infrastructure.bluetooth
+package tesis.untref.com.alarmmanagerapp.configurator.comunication.infrastructure.bluetooth.delivery
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import tesis.untref.com.alarmmanagerapp.configurator.comunication.domain.Delivery
 import tesis.untref.com.alarmmanagerapp.configurator.comunication.domain.Message
+import tesis.untref.com.alarmmanagerapp.configurator.comunication.infrastructure.bluetooth.connection.BluetoothConnection
 
 class BluetoothDelivery(private val bluetoothConnection: BluetoothConnection,
                         private val objectMapper: ObjectMapper) : Delivery {

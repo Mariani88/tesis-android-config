@@ -1,17 +1,15 @@
-package tesis.untref.com.alarmmanagerapp.configurator.comunication.infrastructure.bluetooth.message
+package tesis.untref.com.alarmmanagerapp.configurator.comunication.infrastructure.bluetooth.delivery.message
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import tesis.untref.com.alarmmanagerapp.configurator.comunication.domain.AlarmAction
 import tesis.untref.com.alarmmanagerapp.configurator.comunication.domain.Message
 
-class LocationMessage(
-
+class WifiConnectionMessage(
         @get:JsonProperty("action")
         val action: AlarmAction,
 
-        @get:JsonProperty("latitude")
-        val latitude: LatitudeMessage,
+        @get:JsonProperty("ssid")
+        val ssid: String,
 
-        @get:JsonProperty("longitude")
-        val longitude: LongitudeMessage
-): Message
+        @get:JsonProperty("password")
+        val password: String): Message

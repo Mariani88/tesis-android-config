@@ -1,4 +1,4 @@
-package tesis.untref.com.alarmmanagerapp.configurator.comunication.infrastructure.bluetooth
+package tesis.untref.com.alarmmanagerapp.configurator.comunication.infrastructure.bluetooth.connection
 
 import android.bluetooth.BluetoothDevice
 import android.util.Log

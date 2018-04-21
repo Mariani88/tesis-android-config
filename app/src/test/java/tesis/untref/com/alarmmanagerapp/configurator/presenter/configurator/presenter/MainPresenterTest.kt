@@ -1,11 +1,12 @@
-package tesis.untref.com.alarmmanagerapp.configurator.presenter
+package tesis.untref.com.alarmmanagerapp.configurator.presenter.configurator.presenter
 
 import android.bluetooth.BluetoothAdapter
 import org.junit.Before
 import org.junit.Ignore
 import org.junit.Test
 import org.mockito.Mockito.*
-import tesis.untref.com.alarmmanagerapp.configurator.comunication.infrastructure.bluetooth.BluetoothConnectionCreationService
+import tesis.untref.com.alarmmanagerapp.configurator.comunication.infrastructure.bluetooth.connection.BluetoothConnectionCreationService
+import tesis.untref.com.alarmmanagerapp.configurator.presenter.MainPresenter
 import tesis.untref.com.alarmmanagerapp.configurator.view.MainView
 
 class MainPresenterTest {

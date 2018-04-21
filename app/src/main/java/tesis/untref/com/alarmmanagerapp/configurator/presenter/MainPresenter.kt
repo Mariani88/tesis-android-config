@@ -1,7 +1,7 @@
 package tesis.untref.com.alarmmanagerapp.configurator.presenter
 
 import android.bluetooth.BluetoothAdapter
-import tesis.untref.com.alarmmanagerapp.configurator.comunication.infrastructure.bluetooth.BluetoothConnectionCreationService
+import tesis.untref.com.alarmmanagerapp.configurator.comunication.infrastructure.bluetooth.connection.BluetoothConnectionCreationService
 import tesis.untref.com.alarmmanagerapp.configurator.view.MainView
 
 class MainPresenter(private val mainView: MainView, private val bluetoothConnectionCreationService: BluetoothConnectionCreationService) {

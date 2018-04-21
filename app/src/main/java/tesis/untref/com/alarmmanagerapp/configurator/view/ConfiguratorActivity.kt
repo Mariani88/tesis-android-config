@@ -12,7 +12,7 @@ import android.widget.Toast
 import android.widget.Toast.LENGTH_LONG
 import com.google.android.gms.maps.model.LatLng
 import tesis.untref.com.alarmmanagerapp.R
-import tesis.untref.com.alarmmanagerapp.configurator.BluetoothConnectionProvider
+import tesis.untref.com.alarmmanagerapp.configurator.comunication.infrastructure.bluetooth.connection.BluetoothConnectionProvider
 import tesis.untref.com.alarmmanagerapp.configurator.presenter.ConfiguratorPresenter
 import tesis.untref.com.alarmmanagerapp.location.infrastructure.LocationService
 
