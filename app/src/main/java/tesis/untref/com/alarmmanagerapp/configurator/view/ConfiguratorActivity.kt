@@ -10,9 +10,13 @@ import android.widget.EditText
 import android.widget.RadioButton
 import android.widget.Toast
 import android.widget.Toast.LENGTH_LONG
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.android.gms.maps.model.LatLng
 import tesis.untref.com.alarmmanagerapp.R
 import tesis.untref.com.alarmmanagerapp.configurator.comunication.infrastructure.bluetooth.connection.BluetoothConnectionProvider
+import tesis.untref.com.alarmmanagerapp.configurator.comunication.infrastructure.bluetooth.connection.BluetoothConnectionProvider.Companion.bluetoothConnection
+import tesis.untref.com.alarmmanagerapp.configurator.comunication.infrastructure.bluetooth.delivery.BluetoothDelivery
+import tesis.untref.com.alarmmanagerapp.configurator.comunication.infrastructure.bluetooth.delivery.DefaultConfigurationDelivery
 import tesis.untref.com.alarmmanagerapp.configurator.presenter.ConfiguratorPresenter
 import tesis.untref.com.alarmmanagerapp.location.infrastructure.LocationService
 
@@ -20,19 +24,21 @@ class ConfiguratorActivity : AppCompatActivity(), ConfiguratorView {
     private lateinit var configuratorPresenter: ConfiguratorPresenter
 
     private var locationProvider = NETWORK_PROVIDER
-
+    private val bluetoothDelivery = BluetoothDelivery(bluetoothConnection!!, ObjectMapper())
     private lateinit var gpsProviderButton: RadioButton
     private lateinit var networkProviderButton: RadioButton
     private lateinit var transferLocationButton: Button
+    private lateinit var phoneLocation: LatLng
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_configurator)
-        configuratorPresenter = ConfiguratorPresenter(this, LocationService(this))
+        configuratorPresenter = ConfiguratorPresenter(this,
+                LocationService(this), DefaultConfigurationDelivery(bluetoothDelivery))
         gpsProviderButton = findViewById(R.id.gps_button)
         networkProviderButton = findViewById(R.id.network_button)
         transferLocationButton = findViewById(R.id.transfer_location_button)
-        transferLocationButton.setOnClickListener { configuratorPresenter.sendLocationConnectionMessage() }
+        transferLocationButton.setOnClickListener { configuratorPresenter.sendPhoneLocation(phoneLocation) }
         val checkLocationButton = findViewById<Button>(R.id.check_location_button)
         checkLocationButton.setOnClickListener { configuratorPresenter.findLocation(locationProvider) }
         gpsProviderButton.setOnClickListener { configuratorPresenter.setLocationProvider(GPS_PROVIDER) }
@@ -40,10 +46,11 @@ class ConfiguratorActivity : AppCompatActivity(), ConfiguratorView {
         val ssidField = findViewById<EditText>(R.id.ssid_edit_text)
         val passwordField = findViewById<EditText>(R.id.password_edit_text)
         val connectButton = findViewById<Button>(R.id.connect_button)
-        connectButton.setOnClickListener { configuratorPresenter.sendWifiConnectionMessage(getContent(ssidField), getContent(passwordField)) }
+        connectButton.setOnClickListener { configuratorPresenter.sendWifiConnectionConfiguration(getContent(ssidField), getContent(passwordField)) }
     }
 
     override fun goLocationView(location: LatLng) {
+        this.phoneLocation = location
         val intent = Intent(this, LocationActivity::class.java)
         intent.putExtra("location", location)
         startActivity(intent)
@@ -70,7 +77,7 @@ class ConfiguratorActivity : AppCompatActivity(), ConfiguratorView {
         super.onBackPressed()
     }
 
-    override fun reportMessageSent(viewMessage: String) {
+    override fun reportOnView(viewMessage: String) {
         Toast.makeText(this, viewMessage, LENGTH_LONG).show()
     }
 

@@ -1,8 +1,8 @@
 package tesis.untref.com.alarmmanagerapp.configurator.comunication.infrastructure.bluetooth.delivery.message
 
 import com.fasterxml.jackson.annotation.JsonProperty
-import tesis.untref.com.alarmmanagerapp.configurator.comunication.domain.Message
 import tesis.untref.com.alarmmanagerapp.location.domain.CardinalPoint
+import tesis.untref.com.alarmmanagerapp.location.domain.Longitude
 
 class LongitudeMessage(
 
@@ -17,4 +17,10 @@ class LongitudeMessage(
 
         @get:JsonProperty("cardinal_point")
         val cardinalPoint: CardinalPoint
-): Message
+) {
+    companion object {
+        fun from(longitude: Longitude) =
+                LongitudeMessage(longitude.degree, longitude.minute,
+                        longitude.second, longitude.cardinalPoint)
+    }
+}

@@ -2,16 +2,21 @@ package tesis.untref.com.alarmmanagerapp.configurator.comunication.infrastructur
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import tesis.untref.com.alarmmanagerapp.configurator.comunication.domain.AlarmAction
-import tesis.untref.com.alarmmanagerapp.configurator.comunication.domain.Message
+import tesis.untref.com.alarmmanagerapp.location.domain.PhoneLocation
 
 class LocationMessage(
-
-        @get:JsonProperty("action")
-        val action: AlarmAction,
-
         @get:JsonProperty("latitude")
         val latitude: LatitudeMessage,
 
         @get:JsonProperty("longitude")
         val longitude: LongitudeMessage
-): Message
+) : Message(AlarmAction.SET_LOCATION) {
+
+    companion object {
+        fun from(phoneLocation: PhoneLocation): LocationMessage {
+            val latitudeMessage = LatitudeMessage.from(phoneLocation.latitude)
+            val longitudeMessage = LongitudeMessage.from(phoneLocation.longitude)
+            return LocationMessage(latitudeMessage, longitudeMessage)
+        }
+    }
+}

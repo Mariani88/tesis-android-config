@@ -2,14 +2,15 @@ package tesis.untref.com.alarmmanagerapp.configurator.comunication.infrastructur
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import tesis.untref.com.alarmmanagerapp.configurator.comunication.domain.AlarmAction
-import tesis.untref.com.alarmmanagerapp.configurator.comunication.domain.Message
+import tesis.untref.com.alarmmanagerapp.configurator.model.WifiNetwork
 
-class WifiConnectionMessage(
-        @get:JsonProperty("action")
-        val action: AlarmAction,
+class WifiConnectionMessage private constructor(
+        @get:JsonProperty("ssid") val ssid: String,
+        @get:JsonProperty("password") val password: String) : Message(AlarmAction.CONNECT) {
 
-        @get:JsonProperty("ssid")
-        val ssid: String,
+    companion object {
 
-        @get:JsonProperty("password")
-        val password: String): Message
+        fun from(wifiNetwork: WifiNetwork) =
+                WifiConnectionMessage(wifiNetwork.ssid, wifiNetwork.password)
+    }
+}

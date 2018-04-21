@@ -2,18 +2,19 @@ package tesis.untref.com.alarmmanagerapp.configurator.presenter
 
 import android.location.Location
 import android.location.LocationManager
-import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.android.gms.maps.model.LatLng
-import tesis.untref.com.alarmmanagerapp.configurator.comunication.infrastructure.bluetooth.connection.BluetoothConnectionProvider.Companion.bluetoothConnection
-import tesis.untref.com.alarmmanagerapp.configurator.comunication.domain.AlarmAction
-import tesis.untref.com.alarmmanagerapp.configurator.comunication.infrastructure.bluetooth.delivery.message.WifiConnectionMessage
-import tesis.untref.com.alarmmanagerapp.configurator.comunication.infrastructure.bluetooth.delivery.BluetoothDelivery
+import io.reactivex.Observable
+import io.reactivex.Single
+import io.reactivex.android.schedulers.AndroidSchedulers
+import tesis.untref.com.alarmmanagerapp.configurator.comunication.domain.ConfigurationDelivery
+import tesis.untref.com.alarmmanagerapp.configurator.model.WifiNetwork
 import tesis.untref.com.alarmmanagerapp.configurator.view.ConfiguratorView
+import tesis.untref.com.alarmmanagerapp.location.domain.PhoneLocation
 import tesis.untref.com.alarmmanagerapp.location.infrastructure.LocationService
 
-class ConfiguratorPresenter(private val configuratorView: ConfiguratorView, private val locationService: LocationService) {
-
-    private val deliveryMessage = BluetoothDelivery(bluetoothConnection!!, ObjectMapper())
+class ConfiguratorPresenter(private val configuratorView: ConfiguratorView,
+                            private val locationService: LocationService,
+                            private val configurationDelivery: ConfigurationDelivery) {
 
     fun findLocation(locationProvider: String) {
         locationService
@@ -28,13 +29,22 @@ class ConfiguratorPresenter(private val configuratorView: ConfiguratorView, priv
         }
     }
 
-    fun sendWifiConnectionMessage(ssid: String, password: String) {
-        deliveryMessage.send(WifiConnectionMessage(AlarmAction.CONNECT, ssid, password))
-        configuratorView.reportMessageSent("connection message sent")
+    fun sendWifiConnectionConfiguration(ssid: String, password: String) {
+        Observable
+                .just(WifiNetwork.create(ssid, password))
+                .doOnNext{ configurationDelivery.send(it) }
+                .doOnError{ configuratorView.reportOnView("configuration not sent, check it") }
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ configuratorView.reportOnView("connection message sent") })
     }
 
-    fun sendLocationConnectionMessage() {
-
+    fun sendPhoneLocation(location: LatLng) {
+        Single
+                .just(PhoneLocation.create(location))
+                .doOnSuccess{configurationDelivery.send(it)}
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe ({ configuratorView.reportOnView("location sent") },
+                        {configuratorView.reportOnView("error to send location")})
     }
 }
 
