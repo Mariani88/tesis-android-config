@@ -3,7 +3,6 @@ package tesis.untref.com.alarmmanagerapp.configurator.presenter
 import android.location.Location
 import android.location.LocationManager
 import com.google.android.gms.maps.model.LatLng
-import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import tesis.untref.com.alarmmanagerapp.configurator.comunication.domain.ConfigurationDelivery
@@ -30,21 +29,21 @@ class ConfiguratorPresenter(private val configuratorView: ConfiguratorView,
     }
 
     fun sendWifiConnectionConfiguration(ssid: String, password: String) {
-        Observable
-                .just(WifiNetwork.create(ssid, password))
-                .doOnNext{ configurationDelivery.send(it) }
-                .doOnError{ configuratorView.reportOnView("configuration not sent, check it") }
+        Single
+                .just(ssid)
+                .doOnSuccess { configurationDelivery.send(WifiNetwork.create(it, password)) }
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ configuratorView.reportOnView("connection message sent") })
+                .subscribe({ configuratorView.reportOnView("connection message sent") }, {configuratorView.reportOnView("error: ${it.message}")})
     }
 
     fun sendPhoneLocation(location: LatLng) {
         Single
-                .just(PhoneLocation.create(location))
-                .doOnSuccess{configurationDelivery.send(it)}
+                .just(location)
+                .map { PhoneLocation.create(it) }
+                .doOnSuccess { configurationDelivery.send(it) }
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe ({ configuratorView.reportOnView("location sent") },
-                        {configuratorView.reportOnView("error to send location")})
+                .subscribe({ configuratorView.reportOnView("location sent") },
+                        { configuratorView.reportOnView("error: ${it.message}") })
     }
 }
 
