@@ -15,6 +15,7 @@
     <string name="gps">GPS</string>
     <string name="network">network</string>
     <string name="error_to_connect_bluetooth">\"error to connect\"</string>
+    <string name="searching_aparm">Searching alarm</string>
 
 
 </resources>

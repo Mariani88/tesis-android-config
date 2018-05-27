@@ -16,15 +16,17 @@ class MainActivity : AppCompatActivity(), MainView {
     private val mainPresenter = MainPresenter(this, BluetoothConnectionCreationService(this))
 
     private lateinit var retryButton: Button
-    private lateinit var reporterTextView: TextView
 
+    private lateinit var reporterTextView: TextView
+    private lateinit var connectionButton: Button
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         retryButton = findViewById(R.id.retry_button)
-        retryButton.setOnClickListener { mainPresenter.checkBluetoothConnection(BluetoothAdapter.getDefaultAdapter()) }
+        retryButton.setOnClickListener { mainPresenter.tryConnect(BluetoothAdapter.getDefaultAdapter()) }
         reporterTextView = findViewById(R.id.reporter_text_view)
-        mainPresenter.checkBluetoothConnection(BluetoothAdapter.getDefaultAdapter())
+        connectionButton = findViewById(R.id.alarm_connection_button)
+        connectionButton.setOnClickListener { mainPresenter.checkBluetoothConnection(BluetoothAdapter.getDefaultAdapter()) }
     }
 
     override fun reportIncompatibilityBluetooth() {
@@ -64,6 +66,15 @@ class MainActivity : AppCompatActivity(), MainView {
         reporterTextView.text = resources.getString(R.string.error_to_connect_bluetooth)
         reporterTextView.visibility = View.VISIBLE
         retryButton.visibility = View.VISIBLE
+    }
+
+    override fun reportSearching() {
+        reporterTextView.text = resources.getString(R.string.searching_aparm)
+        reporterTextView.visibility = View.VISIBLE
+    }
+
+    override fun hideConnectionButton() {
+        connectionButton.visibility = View.INVISIBLE
     }
 
     companion object {
