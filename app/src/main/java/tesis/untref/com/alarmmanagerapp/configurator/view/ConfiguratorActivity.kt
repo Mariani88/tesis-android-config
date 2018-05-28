@@ -43,10 +43,16 @@ class ConfiguratorActivity : AppCompatActivity(), ConfiguratorView {
         checkLocationButton.setOnClickListener { configuratorPresenter.findLocation(locationProvider) }
         gpsProviderButton.setOnClickListener { configuratorPresenter.setLocationProvider(GPS_PROVIDER) }
         networkProviderButton.setOnClickListener { configuratorPresenter.setLocationProvider(NETWORK_PROVIDER) }
+
         val ssidField = findViewById<EditText>(R.id.ssid_edit_text)
         val passwordField = findViewById<EditText>(R.id.password_edit_text)
         val connectButton = findViewById<Button>(R.id.connect_button)
         connectButton.setOnClickListener { configuratorPresenter.sendWifiConnectionConfiguration(getContent(ssidField), getContent(passwordField)) }
+
+        val serverIpField = findViewById<EditText>(R.id.server_ip_text)
+        val serverPortField = findViewById<EditText>(R.id.server_port_text)
+        val transferServerButton = findViewById<Button>(R.id.url_server_transfer_button)
+        transferServerButton.setOnClickListener { configuratorPresenter.sendServerUrl(getContent(serverIpField), getContent(serverPortField).toInt()) }
     }
 
     override fun goLocationView(location: LatLng) {

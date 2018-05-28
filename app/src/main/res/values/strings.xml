@@ -16,6 +16,7 @@
     <string name="network">network</string>
     <string name="error_to_connect_bluetooth">\"error to connect\"</string>
     <string name="searching_aparm">Searching alarm</string>
+    <string name="transfer_server_url">Transfer server url</string>
 
 
 </resources>

@@ -34,7 +34,7 @@
         android:id="@+id/transfer_location_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
         android:enabled="false"
@@ -103,5 +103,44 @@
         app:layout_constraintEnd_toStartOf="@+id/connect_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ssid_edit_text" />
+
+    <EditText
+        android:id="@+id/server_ip_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="36dp"
+        android:layout_marginStart="3dp"
+        android:ems="10"
+        android:hint="server ip"
+        android:digits="0123456789."
+        android:inputType="number"
+        app:layout_constraintBottom_toTopOf="@+id/url_server_transfer_button"
+        app:layout_constraintEnd_toStartOf="@+id/server_port_text"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/url_server_transfer_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="@string/transfer_server_url"
+        app:layout_constraintBottom_toTopOf="@+id/gps_button"
+        app:layout_constraintStart_toStartOf="@+id/gps_button" />
+
+    <EditText
+        android:id="@+id/server_port_text"
+        android:layout_width="89dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="17dp"
+        android:layout_marginRight="17dp"
+        android:ems="10"
+        android:hint="port"
+        android:inputType="number"
+        app:layout_constraintBaseline_toBaselineOf="@+id/server_ip_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/server_ip_text" />
 
 </android.support.constraint.ConstraintLayout>
