@@ -17,12 +17,6 @@ class BluetoothConnection(private val bluetoothDevice: BluetoothDevice, private 
         bluetoothConnectionThread!!.write(bytes)
     }
 
-    fun isConnected() = this.bluetoothConnectionThread!!.isConnected()
-
-    fun retryConnection() {
-        connectToDevice()
-    }
-
     fun closeConnection() {
         bluetoothConnectionThread!!.closeConnection()
     }
