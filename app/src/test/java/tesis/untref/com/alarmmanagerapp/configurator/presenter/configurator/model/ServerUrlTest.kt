@@ -10,7 +10,7 @@ class ServerUrlTest {
     private lateinit var serverUrl: ServerUrl
     private lateinit var serverIp: String
     private var exception: Throwable? = null
-    private var port: Int = 0
+    private var port: String = ""
 
     companion object {
         private const val VALID_IP = "192.168.1.1"
@@ -18,12 +18,13 @@ class ServerUrlTest {
         private const val VALID_PORT = 8080
         private const val INVALID_LOWER_PORT = 0
         private const val INVALID_HIGH_PORT = 65535
+        private const val EMPTY_PORT = ""
     }
 
     @Test
     fun invalidIpThrowsException(){
         givenAnIp(INVALID_IP)
-        givenAPort(VALID_PORT)
+        givenAPort(VALID_PORT.toString())
 
         whenCreateServerUrl()
 
@@ -33,7 +34,7 @@ class ServerUrlTest {
     @Test
     fun emptyIpThrowsException(){
         givenAnIp("")
-        givenAPort(VALID_PORT)
+        givenAPort(VALID_PORT.toString())
 
         whenCreateServerUrl()
 
@@ -43,7 +44,7 @@ class ServerUrlTest {
     @Test
     fun invalidLowerPortThrowsException(){
         givenAnIp(VALID_IP)
-        givenAPort(INVALID_LOWER_PORT)
+        givenAPort(INVALID_LOWER_PORT.toString())
 
         whenCreateServerUrl()
 
@@ -53,7 +54,17 @@ class ServerUrlTest {
     @Test
     fun invalidHighPortThrowsException(){
         givenAnIp(VALID_IP)
-        givenAPort(INVALID_HIGH_PORT)
+        givenAPort(INVALID_HIGH_PORT.toString())
+
+        whenCreateServerUrl()
+
+        thenThrowsException()
+    }
+
+    @Test
+    fun emptyPortThrowsException(){
+        givenAnIp(VALID_IP)
+        givenAPort(EMPTY_PORT.toString())
 
         whenCreateServerUrl()
 
@@ -63,7 +74,7 @@ class ServerUrlTest {
     @Test
     fun validIpAndPortCreateUrl(){
         givenAnIp(VALID_IP)
-        givenAPort(VALID_PORT)
+        givenAPort(VALID_PORT.toString())
 
         whenCreateServerUrl()
 
@@ -85,7 +96,7 @@ class ServerUrlTest {
         assertThat(serverUrl.port).isEqualTo(VALID_PORT)
     }
 
-    private fun givenAPort(port: Int) {
+    private fun givenAPort(port: String) {
         this.port = port
     }
 

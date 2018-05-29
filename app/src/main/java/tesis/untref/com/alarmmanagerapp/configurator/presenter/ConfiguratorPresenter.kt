@@ -47,7 +47,7 @@ class ConfiguratorPresenter(private val configuratorView: ConfiguratorView,
                         { configuratorView.reportOnView("error: ${it.message}") })
     }
 
-    fun sendServerUrl(serverIp: String, port: Int) {
+    fun sendServerUrl(serverIp: String, port: String) {
         Single
                 .just(serverIp)
                 .map { ServerUrl.create(serverIp, port) }

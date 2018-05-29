@@ -52,7 +52,7 @@ class ConfiguratorActivity : AppCompatActivity(), ConfiguratorView {
         val serverIpField = findViewById<EditText>(R.id.server_ip_text)
         val serverPortField = findViewById<EditText>(R.id.server_port_text)
         val transferServerButton = findViewById<Button>(R.id.url_server_transfer_button)
-        transferServerButton.setOnClickListener { configuratorPresenter.sendServerUrl(getContent(serverIpField), getContent(serverPortField).toInt()) }
+        transferServerButton.setOnClickListener { configuratorPresenter.sendServerUrl(getContent(serverIpField), getContent(serverPortField)) }
     }
 
     override fun goLocationView(location: LatLng) {
