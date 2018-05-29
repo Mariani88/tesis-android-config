@@ -3,6 +3,7 @@ package tesis.untref.com.alarmmanagerapp.configurator.presenter
 import android.location.Location
 import android.location.LocationManager
 import com.google.android.gms.maps.model.LatLng
+import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import tesis.untref.com.alarmmanagerapp.configurator.comunication.domain.ConfigurationDelivery
@@ -54,6 +55,14 @@ class ConfiguratorPresenter(private val configuratorView: ConfiguratorView,
                 .doOnSuccess { configurationDelivery.send(it) }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ configuratorView.reportOnView("server url sent") },
+                        { configuratorView.reportOnView("error: ${it.message}") })
+    }
+
+    fun stopAlert() {
+        Completable
+                .fromAction { configurationDelivery.sendStopAlert() }
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ configuratorView.reportOnView("stop alert sent") },
                         { configuratorView.reportOnView("error: ${it.message}") })
     }
 }

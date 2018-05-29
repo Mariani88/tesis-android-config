@@ -20,11 +20,11 @@
 
     <Button
         android:id="@+id/transfer_location_button"
-        android:layout_width="wrap_content"
+        android:layout_width="148dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginBottom="56dp"
+        android:layout_marginLeft="172dp"
+        android:layout_marginStart="172dp"
         android:enabled="false"
         android:text="@string/transfer_phone_location"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -34,7 +34,7 @@
         android:id="@+id/check_location_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="7dp"
+        android:layout_marginTop="4dp"
         android:enabled="true"
         android:text="@string/check_location"
         app:layout_constraintStart_toStartOf="@+id/gps_button"
@@ -68,11 +68,13 @@
         android:id="@+id/ssid_edit_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="297dp"
         android:layout_marginTop="6dp"
         android:ems="10"
         android:hint="ssid"
         android:inputType="textPersonName"
         android:text=""
+        app:layout_constraintBottom_toTopOf="@+id/stop_alert_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -126,5 +128,16 @@
         android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/connect_button" />
+
+    <Button
+        android:id="@+id/stop_alert_button"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="7dp"
+        android:text="stop alert"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/network_button"
+        app:layout_constraintStart_toStartOf="@+id/check_location_button"
+        app:layout_constraintTop_toBottomOf="@+id/ssid_edit_text" />
 
 </android.support.constraint.ConstraintLayout>

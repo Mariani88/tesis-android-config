@@ -53,6 +53,9 @@ class ConfiguratorActivity : AppCompatActivity(), ConfiguratorView {
         val serverPortField = findViewById<EditText>(R.id.server_port_text)
         val transferServerButton = findViewById<Button>(R.id.url_server_transfer_button)
         transferServerButton.setOnClickListener { configuratorPresenter.sendServerUrl(getContent(serverIpField), getContent(serverPortField)) }
+
+        val stopAlertButton = findViewById<Button>(R.id.stop_alert_button)
+        stopAlertButton.setOnClickListener { configuratorPresenter.stopAlert() }
     }
 
     override fun goLocationView(location: LatLng) {

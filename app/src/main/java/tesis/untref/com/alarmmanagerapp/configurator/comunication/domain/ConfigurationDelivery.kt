@@ -9,4 +9,5 @@ interface ConfigurationDelivery {
     fun send(wifiNetwork: WifiNetwork)
     fun send(phoneLocation: PhoneLocation)
     fun send(serverUrl: ServerUrl)
+    fun sendStopAlert()
 }

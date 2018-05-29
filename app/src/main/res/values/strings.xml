@@ -3,7 +3,7 @@
     <string name="wifi_networks">Wifi networks</string>
     <string name="not_connected">NOT CONNECTED</string>
     <string name="location_not_defined">Location not defined</string>
-    <string name="transfer_phone_location">transfer phone location</string>
+    <string name="transfer_phone_location">transfer location</string>
     <string name="connect">Connect</string>
     <string name="retry">retry</string>
 
