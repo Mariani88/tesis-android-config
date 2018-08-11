@@ -1,4 +1,4 @@
-# tesis-android-config
+# tesis-android-app-configuradora
 
 - Sobre esta aplicación
 
