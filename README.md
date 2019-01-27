@@ -1,4 +1,4 @@
-# tesis-android-config
+# tesis-android-app-configuradora
 Android app for configure Arduino alarm
 
 Esta aplicación es una aplicación Android, la cual se encarga de configurar una alarma contra incendios, enviándole mensajes por Bluetooth. La
@@ -21,6 +21,3 @@ Software de la alarma: https://github.com/Mariani88/tesis-alarm
 La aplicacion Android que configura la alarma: https://github.com/Mariani88/tesis-android-config
 La API Rest que recibe las alertas: https://github.com/Mariani88/tesis-server
 La aplicación mobile receptora de alertas: https://github.com/Mariani88/tesis-android
-
-
-
